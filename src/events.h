@@ -1,12 +1,14 @@
 #ifndef EVENTS
 #define EVENTS
 
+#include <gtk/gtk.h>
+
 class Events {
 	public:
 		Events() { };
 		~Events() { };
 
-		void handleEvent();
+		void handleKeyEvent(guint keyval);
 
 	private:
 };

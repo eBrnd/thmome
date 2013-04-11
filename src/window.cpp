@@ -6,7 +6,9 @@
 #include "core.h"
 
 gboolean keypress_callback(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
-	Core::inst()->getEventHandler()->handleEvent();
+	Core::inst()->getEventHandler()->handleKeyEvent(event->keyval);
+
+	return FALSE;
 }
 
 Window::Window() {
