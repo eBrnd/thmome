@@ -50,7 +50,7 @@ void Window::init() {
 	gtk_box_pack_start(GTK_BOX(main_box), hex_oct_box, FALSE, TRUE, 0);
 
   GtkWidget* bin_display_sep = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
-	gtk_box_pack_start(GTK_BOX(main_box), bin_display_sep, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(main_box), bin_display_sep, FALSE, TRUE, 5);
 
 	gtk_container_add(GTK_CONTAINER(window), main_box);
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
@@ -62,7 +62,14 @@ void Window::init() {
 	gtk_box_pack_start(GTK_BOX(main_box), main_display_lb, FALSE, TRUE, 0);
 
 
-	// input mode selector
+  GtkWidget* display_input_sep = gtk_separator_new(GTK_ORIENTATION_HORIZONTAL);
+	gtk_box_pack_start(GTK_BOX(main_box), display_input_sep, FALSE, TRUE, 5);
+
+
+	// input area
+	GtkWidget* input_buffer_lb = gtk_label_new("9876543210");
+	gtk_box_pack_start(GTK_BOX(main_box), input_buffer_lb, FALSE, TRUE, 0);
+
 	GtkWidget* input_mode_lb = gtk_label_new("Input mode:");
 
 	GtkWidget* dec_in_rb = gtk_radio_button_new_with_label(NULL, "Decimal");
@@ -77,5 +84,12 @@ void Window::init() {
 
 	gtk_box_pack_start(GTK_BOX(main_box), input_mode_box, FALSE, TRUE, 0);
 
+
+	// status and command bar
+	GtkWidget* status_bar_lb = gtk_label_new("thmome v0.1 ready!");
+	gtk_box_pack_end(GTK_BOX(main_box), status_bar_lb, FALSE, TRUE, 0);
+
+
+	// show all the widgets!
 	gtk_widget_show_all(window);
 }
