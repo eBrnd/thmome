@@ -5,19 +5,17 @@
 #include "events.h"
 #include "core.h"
 
-// TODO find out if you can use members of anything for this...
-void button_callback(GtkWidget* widget, GdkEventButton* event, gpointer callback_data)
-{
+gboolean keypress_callback(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 	Core::inst()->getEventHandler()->handleEvent();
 }
 
-
 Window::Window() {
-	init();
+	buildWindow();
+	connectInput();
 }
 
-void Window::init() {
-	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+void Window::buildWindow() {
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
@@ -92,4 +90,8 @@ void Window::init() {
 
 	// show all the widgets!
 	gtk_widget_show_all(window);
+}
+
+void Window::connectInput() {
+	g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(keypress_callback), NULL);
 }

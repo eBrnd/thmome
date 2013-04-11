@@ -9,7 +9,10 @@ class Window {
 		~Window() { };
 
 	private:
-		void init();
+		void buildWindow();
+		void connectInput();
+
+		GtkWidget* window;
 };
 
 #endif
