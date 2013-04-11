@@ -19,11 +19,24 @@ Window::Window() {
 void Window::init() {
 	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	GtkWidget* button = gtk_button_new_with_label("Push me!");
-	g_signal_connect(G_OBJECT(button), "button_press_event", G_CALLBACK(button_callback), NULL);
+	GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
-	gtk_container_add(GTK_CONTAINER(window), button);
+	// binary display status indicators / controllers
+	GtkWidget* binary_lb = gtk_label_new("Binary mode:");
 
+	GtkWidget* dual_rb = gtk_radio_button_new_with_label(NULL, "dual");
+	GtkWidget* twok_rb = gtk_radio_button_new_with_label(gtk_radio_button_get_group(GTK_RADIO_BUTTON(dual_rb)), "2k");
+	GtkWidget* float_rb = gtk_radio_button_new_with_label(gtk_radio_button_get_group(GTK_RADIO_BUTTON(dual_rb)), "float");
+
+	GtkWidget* binary_status_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_box_pack_start(GTK_BOX(binary_status_box), binary_lb, TRUE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(binary_status_box), twok_rb, TRUE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(binary_status_box), float_rb, TRUE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(binary_status_box), dual_rb, TRUE, TRUE, 0);
+
+	gtk_box_pack_start(GTK_BOX(main_box), binary_status_box, FALSE, TRUE, 0);
+
+	gtk_container_add(GTK_CONTAINER(window), main_box);
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
 	gtk_widget_show_all(window);
